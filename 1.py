@@ -1,6 +1,23 @@
+import json
+
+
+def f():
+    file = open("animals.json").read()
+    info = json.loads(file)
+
+    if "animals" in info:
+
+        info = info["animals"]
+
+        def getAnimals(info, typename, type):
+            return list(filter(lambda i: typename in i and i[typename] == type, info))
+
+
+        print(getAnimals(info, "animal_type", "Bird"))
+        print(len(getAnimals(info, "active_time", "Diurnal")))
+        print(min(info, key=lambda x: float(x['weight_min'])))
+
 try:
-    matrix = [[int(j) for j in i.split(" ")] for i in open("1.txt").read().splitlines()]
-    length = len(matrix)
-    print(f"Количество изолированных вершин: {length - sum([any([matrix[x][y] for y in range(length) if x != y]) for x in range(length)])}")
+    f()
 except:
     print("Ошибка")
